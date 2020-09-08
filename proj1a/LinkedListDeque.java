@@ -115,7 +115,7 @@ public class LinkedListDeque<T> {
         }
         return getRecursivehelper(sentinel.next, index);
     }
-
+    /*
     public LinkedListDeque(LinkedListDeque other) {
         sentinel = new Node(dummy, null, null);
         sentinel.prev = sentinel;
@@ -126,4 +126,6 @@ public class LinkedListDeque<T> {
             addLast((T) other.get(i));
         }
     }
+
+     */
 }

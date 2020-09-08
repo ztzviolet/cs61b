@@ -10,11 +10,12 @@ public class ArrayDeque<T> {
         nextFirst = 3;
         nextLast = 4;
     }
+
     private void sizeUp(int newSize) {
         T[] temp = (T[]) new Object[newSize];
         System.arraycopy(arr,0, temp,0, nextLast);
         System.arraycopy(arr,nextLast, temp,nextLast + newSize - size,size - nextLast);
-        nextFirst += nextLast+size - 1;
+        nextFirst = nextLast + size - 1;
         arr = temp;
     }
 
@@ -28,6 +29,7 @@ public class ArrayDeque<T> {
             nextFirst += arr.length;
         }
         size += 1;
+
     }
 
     public void addLast(T item) {
@@ -40,6 +42,7 @@ public class ArrayDeque<T> {
             nextLast -= arr.length;
         }
         size += 1;
+
     }
 
     public boolean isEmpty() {
@@ -86,7 +89,7 @@ public class ArrayDeque<T> {
         arr[pointer] = null;
         nextFirst = pointer;
         size -= 1;
-        if (size*4 <= arr.length) {
+        if (size > 16 & size*4 <= arr.length) {
             sizeDown(size * 2);
         }
         return pop;
@@ -97,14 +100,14 @@ public class ArrayDeque<T> {
             return null;
         }
         int pointer = nextLast - 1;
-        if (pointer >= arr.length) {
-            pointer -= arr.length;
+        if (pointer < 0) {
+            pointer += arr.length;
         }
         T pop = arr[pointer];
         arr[pointer] = null;
         nextLast = pointer;
         size -= 1;
-        if (size*4 <= arr.length) {
+        if (size > 16 & size*4 <= arr.length) {
             sizeDown(size * 2);
         }
         return pop;
@@ -120,4 +123,5 @@ public class ArrayDeque<T> {
         }
         return arr[pointer];
     }
+
 }
