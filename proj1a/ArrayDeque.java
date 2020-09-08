@@ -8,19 +8,19 @@ public class ArrayDeque<T> {
         arr = (T[]) new Object[8];
         size = 0;
         nextFirst = 3;
-        nextLast = 3;
+        nextLast = 4;
     }
     private void sizeUp(int newSize) {
         T[] temp = (T[]) new Object[newSize];
-        System.arraycopy(arr,0,temp,0,nextLast);
-        System.arraycopy(arr,nextLast,temp,nextLast+newSize-size,size-nextLast);
-        nextFirst += nextLast+size-1;
+        System.arraycopy(arr,0, temp,0, nextLast);
+        System.arraycopy(arr,nextLast, temp,nextLast + newSize - size,size - nextLast);
+        nextFirst += nextLast+size - 1;
         arr = temp;
     }
 
     public void addFirst(T item) {
         if (size == arr.length) {
-            sizeUp(size*2);
+            sizeUp(size * 2);
         }
         arr[nextFirst] = item;
         nextFirst -= 1;
@@ -32,7 +32,7 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (size == arr.length) {
-            sizeUp(size*2);
+            sizeUp(size * 2);
         }
         arr[nextLast] = item;
         nextLast += 1;
@@ -65,16 +65,19 @@ public class ArrayDeque<T> {
 
     private void sizeDown(int newSize) {
         T[] temp = (T[]) new Object[newSize];
-        if (nextFirst == arr.length-1) {
+        if (nextFirst == arr.length - 1) {
             nextFirst = -1;
         }
-        System.arraycopy(arr,0,temp,0,nextLast);
-        System.arraycopy(arr,nextFirst+1,temp,nextLast+newSize-size,size-nextLast);
-        nextFirst += nextLast+newSize-size-1;
+        System.arraycopy(arr,0, temp ,0, nextLast);
+        System.arraycopy(arr,nextFirst + 1, temp,nextLast + newSize - size,size - nextLast);
+        nextFirst += nextLast + newSize - size - 1;
         arr = temp;
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         int pointer = nextFirst + 1;
         if (pointer >= arr.length) {
             pointer -= arr.length;
@@ -90,6 +93,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         int pointer = nextLast - 1;
         if (pointer >= arr.length) {
             pointer -= arr.length;
@@ -109,9 +115,9 @@ public class ArrayDeque<T> {
             return null;
         }
         int pointer = nextFirst + 1 + index;
-            if (pointer >= arr.length) {
-                pointer -= arr.length;
-            }
+        if (pointer >= arr.length) {
+            pointer -= arr.length;
+        }
         return arr[pointer];
     }
 }
