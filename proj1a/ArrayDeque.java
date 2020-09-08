@@ -13,9 +13,9 @@ public class ArrayDeque<T> {
 
     private void sizeUp(int newSize) {
         T[] temp = (T[]) new Object[newSize];
-        System.arraycopy(arr,0, temp,0, nextLast);
-        System.arraycopy(arr,nextLast, temp,nextLast + newSize - size,size - nextLast);
-        nextFirst = nextLast + size - 1;
+        System.arraycopy(arr, 0, temp, 0, nextLast);
+        System.arraycopy(arr, nextLast, temp, nextLast + newSize - size, size - nextLast);
+        nextFirst = nextLast + newSize - size - 1;
         arr = temp;
     }
 
@@ -71,9 +71,9 @@ public class ArrayDeque<T> {
         if (nextFirst == arr.length - 1) {
             nextFirst = -1;
         }
-        System.arraycopy(arr,0, temp ,0, nextLast);
-        System.arraycopy(arr,nextFirst + 1, temp,nextLast + newSize - size,size - nextLast);
-        nextFirst += nextLast + newSize - size - 1;
+        System.arraycopy(arr, 0, temp, 0, nextLast);
+        System.arraycopy(arr, nextFirst + 1, temp, nextLast + newSize - size, size - nextLast);
+        nextFirst = nextLast + newSize - size - 1;
         arr = temp;
     }
 
@@ -89,7 +89,7 @@ public class ArrayDeque<T> {
         arr[pointer] = null;
         nextFirst = pointer;
         size -= 1;
-        if (size > 16 & size*4 <= arr.length) {
+        if (size > 8 & size * 4 <= arr.length) {
             sizeDown(size * 2);
         }
         return pop;
@@ -107,7 +107,7 @@ public class ArrayDeque<T> {
         arr[pointer] = null;
         nextLast = pointer;
         size -= 1;
-        if (size > 16 & size*4 <= arr.length) {
+        if (size > 8 & size * 4 <= arr.length) {
             sizeDown(size * 2);
         }
         return pop;
